@@ -1,0 +1,16 @@
+[
+{
+  "modid": "autoally",
+  "name": "Auto Ally",
+  "description": "Auto set an Ally based on a rank in FTBUtil",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "updateUrl": "",
+  "authorList": [
+    "Tamaized"
+  ],
+  "credits": "Tamaized",
+  "screenshots": [],
+  "dependencies": []
+}
+]
