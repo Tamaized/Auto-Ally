@@ -1,8 +1,9 @@
 package tamaized.autoally.asm;
 
-import com.feed_the_beast.ftblib.lib.EnumTeamStatus;
-import com.feed_the_beast.ftblib.lib.data.ForgePlayer;
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -15,7 +16,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 import java.util.Iterator;
 
-@SuppressWarnings("unused")
+@IFMLLoadingPlugin.MCVersion(Loader.MC_VERSION)
 public class ClassTransformer implements IClassTransformer {
 
 	@Override
@@ -52,7 +53,12 @@ public class ClassTransformer implements IClassTransformer {
 
 						));
 						method.instructions.insertBefore(ins, instructions);
-						ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+						ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES) {
+							@Override
+							protected String getCommonSuperClass(String type1, String type2) {
+								return super.getCommonSuperClass(FMLDeobfuscatingRemapper.INSTANCE.map(type1), FMLDeobfuscatingRemapper.INSTANCE.map(type2));
+							}
+						};
 						node.accept(writer);
 						return writer.toByteArray();
 					}
