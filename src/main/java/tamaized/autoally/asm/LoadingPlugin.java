@@ -5,6 +5,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
 
+@IFMLLoadingPlugin.SortingIndex(9001)
 @IFMLLoadingPlugin.MCVersion(Loader.MC_VERSION)
 @IFMLLoadingPlugin.TransformerExclusions({"tamaized.autoally"})
 public class LoadingPlugin implements IFMLLoadingPlugin {
