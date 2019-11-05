@@ -18,10 +18,6 @@ import java.util.Iterator;
 @SuppressWarnings("unused")
 public class ClassTransformer implements IClassTransformer {
 
-	public static EnumTeamStatus hook(EnumTeamStatus original, ForgePlayer player) {
-		return original;
-	}
-
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] bytes) {
 		if ("com.feed_the_beast.ftblib.lib.data.ForgeTeam".equals(transformedName)) {
@@ -40,16 +36,17 @@ public class ClassTransformer implements IClassTransformer {
 					}
 					if (ins != null) {
 						InsnList instructions = new InsnList();
+						instructions.add(new VarInsnNode(Opcodes.ALOAD, 0)); // this
 						instructions.add(new VarInsnNode(Opcodes.ALOAD, 1)); // ForgePlayer
 						instructions.add(new MethodInsnNode(
 
 								Opcodes.INVOKESTATIC,
 
-								"tamaized/autoally/asm/ClassTransformer",
+								"tamaized/autoally/AutoAlly",
 
 								"hook",
 
-								"(Lcom/feed_the_beast/ftblib/lib/EnumTeamStatus;Lcom/feed_the_beast/ftblib/lib/data/ForgePlayer;)Lcom/feed_the_beast/ftblib/lib/EnumTeamStatus;",
+								"(Lcom/feed_the_beast/ftblib/lib/EnumTeamStatus;Lcom/feed_the_beast/ftblib/lib/data/ForgeTeam;Lcom/feed_the_beast/ftblib/lib/data/ForgePlayer;)Lcom/feed_the_beast/ftblib/lib/EnumTeamStatus;",
 
 								false
 
