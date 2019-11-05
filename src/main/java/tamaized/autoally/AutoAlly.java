@@ -9,4 +9,6 @@ public class AutoAlly {
 
 	public static final String MODID = "autoally";
 
+	public static final String ID_ALLY = MODID + ".team";
+
 }

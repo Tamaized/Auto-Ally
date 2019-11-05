@@ -44,6 +44,8 @@ minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     runDir = "run"
 
+    coreMod = "tamaized.autoally.asm.LoadingPlugin"
+
     mappings = config.mcp_mappings
     makeObfSourceJar = false
 
@@ -52,6 +54,9 @@ minecraft {
 
     replaceIn 'AutoAlly.java'
     replace '@VERSION@', project.version
+
+    clientJvmArgs += "-Dfml.coreMods.load=tamaized.autoally.asm.LoadingPlugin"
+    serverJvmArgs += "-Dfml.coreMods.load=tamaized.autoally.asm.LoadingPlugin"
 }
 
 processResources {
@@ -80,9 +85,9 @@ compileJava {
 
 jar {
     classifier = 'universal'
-    /*manifest {
-        attributes 'FMLAT': 'xx_at.cfg'
-    }*/
+    manifest {
+        attributes("FMLCorePluginContainsFMLMod": "true", "FMLCorePlugin": "tamaized.autoally.asm.LoadingPlugin")
+    }
 }
 
 repositories {
